@@ -18,9 +18,15 @@ void populateBoard(void);
 void findCurrentRowCol(void);
 void printOutBoard(void);
 int moveLeft(int moveLeftVal);
+int moveRight(int moveRightVal);
+int moveUp(int moveUpVal);
+int moveDown(int moveDownVal);
 
 int main(int argc, const char * argv[]) {
     int moveLeftVal;
+    int moveRightVal;
+    int moveUpVal;
+    int moveDownVal;
     
     // Build the board and populate the board
     populateBoard();
@@ -28,14 +34,22 @@ int main(int argc, const char * argv[]) {
     // Print Out Board
     printOutBoard();
     
-    // Move left 1
-    moveLeft(1);
-
-    
-    // Move left 2
     moveLeft(2);
     
-    // Move left 3     
+    moveUp(2);
+    
+    moveRight(2);
+    
+    moveDown(2);
+    
+    moveUp(3);
+    
+    moveLeft(3);
+    
+    moveDown(3);
+    
+    moveRight(3);
+    
     return 0;
 }
 
@@ -91,7 +105,7 @@ int moveLeft(int moveLeftVal)
 {
     findCurrentRowCol();
     
-    if ((currentRow - moveLeftVal) < 0)
+    if ((currentColumn - moveLeftVal) < 0)
     {
         printf("Incorrect input!  Takes you off the board!");
         return 0;
@@ -122,6 +136,117 @@ int moveLeft(int moveLeftVal)
         tileGameBoard[currentRow][currentColumn - 1] = tileGameBoard[currentRow][currentColumn - 2];
         // Move 3 to where 2 was
         tileGameBoard[currentRow][currentColumn - 2] = moveTileBufferOne;
+    }
+    
+    printOutBoard();
+    
+    return 0;
+}
+
+int moveRight(int moveRightVal)
+{
+    findCurrentRowCol();
+    
+    if ((currentColumn + moveRightVal) > 3)
+    {
+        printf("Incorrect input!  Takes you off the board!");
+        return 0;
+    }
+    
+    if (moveRightVal == 1)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow][currentColumn + moveRightVal];
+        tileGameBoard[currentRow][currentColumn + moveRightVal] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = moveTileBufferOne;
+    }
+    else if (moveRightVal == 2)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow][currentColumn + moveRightVal];
+        tileGameBoard[currentRow][currentColumn + moveRightVal] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow][currentColumn + 1];
+        tileGameBoard[currentRow][currentColumn + 1] = moveTileBufferOne;
+    }
+    else if (moveRightVal == 3)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow][currentColumn + moveRightVal];
+        tileGameBoard[currentRow][currentColumn + moveRightVal] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow][currentColumn + 1];
+        tileGameBoard[currentRow][currentColumn + 1] = tileGameBoard[currentRow][currentColumn + 2];
+        tileGameBoard[currentRow][currentColumn + 2] = moveTileBufferOne;
+    }
+    
+    printOutBoard();
+    
+    return 0;
+}
+
+int moveUp(int moveUpVal)
+{
+    findCurrentRowCol();
+    
+    if ((currentRow - moveUpVal) < 0)
+    {
+        printf("Incorrect input!  Takes you off the board!");
+        return 0;
+    }
+    
+    if (moveUpVal == 1)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow - moveUpVal][currentColumn];
+        tileGameBoard[currentRow - moveUpVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = moveTileBufferOne;
+    }
+    else if (moveUpVal == 2)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow - moveUpVal][currentColumn];
+        tileGameBoard[currentRow - moveUpVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow - 1][currentColumn];
+        tileGameBoard[currentRow - 1][currentColumn] = moveTileBufferOne;
+    }
+    else if (moveUpVal == 3)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow - moveUpVal][currentColumn];
+        tileGameBoard[currentRow - moveUpVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow - 1][currentColumn];
+        tileGameBoard[currentRow - 1][currentColumn] = tileGameBoard[currentRow - 2][currentColumn];
+        tileGameBoard[currentRow - 2][currentColumn] = moveTileBufferOne;
+    }
+    
+    printOutBoard();
+    
+    return 0;
+}
+
+int moveDown(int moveDownVal)
+{
+    findCurrentRowCol();
+    
+    if ((currentRow + moveDownVal) > 3)
+    {
+        printf("Incorrect input!  Takes you off the board!");
+        return 0;
+    }
+    
+    if (moveDownVal == 1)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow + moveDownVal][currentColumn];
+        tileGameBoard[currentRow + moveDownVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = moveTileBufferOne;
+    }
+    else if (moveDownVal == 2)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow + moveDownVal][currentColumn];
+        tileGameBoard[currentRow + moveDownVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow + 1][currentColumn];
+        tileGameBoard[currentRow + 1][currentColumn] = moveTileBufferOne;
+    }
+    else if (moveDownVal == 3)
+    {
+        int moveTileBufferOne = tileGameBoard[currentRow + moveDownVal][currentColumn];
+        tileGameBoard[currentRow + moveDownVal][currentColumn] = tileGameBoard[currentRow][currentColumn];
+        tileGameBoard[currentRow][currentColumn] = tileGameBoard[currentRow + 1][currentColumn];
+        tileGameBoard[currentRow + 1][currentColumn] = tileGameBoard[currentRow + 2][currentColumn];
+        tileGameBoard[currentRow + 2][currentColumn] = moveTileBufferOne;
     }
     
     printOutBoard();

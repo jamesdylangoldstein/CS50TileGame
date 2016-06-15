@@ -33,6 +33,10 @@ int main(int argc, const char * argv[]) {
     char directionToMove;
     int tilesToMove;
     
+    printf("The goal of this game is to reorder the following number table.\n");
+    printf("Think of the number zero as a blank space.\n");
+    printf("You can move the numbers that surround zero into the spot that zero occupies.\n");
+    
     // Build the board and populate the board
     populateBoard();
     
@@ -41,8 +45,11 @@ int main(int argc, const char * argv[]) {
     
     do
     {
+        do
+        {
         printf("Type 'L' to move left, 'R' to move right, 'U' to move up, 'D' to move down:");
         scanf(" %c", &directionToMove);
+        }while((directionToMove != 'l') && (directionToMove != 'L') && (directionToMove != 'r') && (directionToMove != 'R') && (directionToMove != 'u') && (directionToMove != 'U') && (directionToMove != 'd') && (directionToMove != 'D'));
         
         if (directionToMove != 'q' || directionToMove != 'Q')
         {

@@ -27,6 +27,8 @@ int main(int argc, const char * argv[]) {
     int moveRightVal;
     int moveUpVal;
     int moveDownVal;
+    char directionToMove;
+    int tilesToMove;
     
     // Build the board and populate the board
     populateBoard();
@@ -34,21 +36,35 @@ int main(int argc, const char * argv[]) {
     // Print Out Board
     printOutBoard();
     
-    moveLeft(2);
-    
-    moveUp(2);
-    
-    moveRight(2);
-    
-    moveDown(2);
-    
-    moveUp(3);
-    
-    moveLeft(3);
-    
-    moveDown(3);
-    
-    moveRight(3);
+    do
+    {
+        printf("Type 'L' to move left, 'R' to move right, 'U' to move up, 'D' to move down:");
+        scanf(" %c", &directionToMove);
+        
+        if (directionToMove != 'q' || directionToMove != 'Q')
+        {
+            printf("Enter the number of tiles to move:");
+            scanf(" %i", &tilesToMove);
+            
+            if (directionToMove == 'l' || directionToMove == 'L')
+            {
+                moveLeft(tilesToMove);
+            }
+            else if (directionToMove == 'r' || directionToMove == 'R')
+            {
+                moveRight(tilesToMove);
+            }
+            else if (directionToMove == 'u' || directionToMove == 'U')
+            {
+                moveUp(tilesToMove);
+            }
+            else if (directionToMove == 'd' || directionToMove == 'D')
+            {
+                moveDown(tilesToMove);
+            }
+        }
+        
+    }while(directionToMove != 'q' || directionToMove != 'Q');
     
     return 0;
 }

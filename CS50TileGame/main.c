@@ -9,10 +9,12 @@
 //next step, build function to find the coordinate of zero
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int tileGameBoard[4][4];
 int currentRow;
 int currentColumn;
+int winningBoard[4][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0};
 
 void populateBoard(void);
 void findCurrentRowCol(void);
@@ -21,6 +23,7 @@ int moveLeft(int moveLeftVal);
 int moveRight(int moveRightVal);
 int moveUp(int moveUpVal);
 int moveDown(int moveDownVal);
+int checkForWinner(void);
 
 int main(int argc, const char * argv[]) {
     int moveLeftVal;
@@ -49,18 +52,22 @@ int main(int argc, const char * argv[]) {
             if (directionToMove == 'l' || directionToMove == 'L')
             {
                 moveLeft(tilesToMove);
+                checkForWinner();
             }
             else if (directionToMove == 'r' || directionToMove == 'R')
             {
                 moveRight(tilesToMove);
+                checkForWinner();
             }
             else if (directionToMove == 'u' || directionToMove == 'U')
             {
                 moveUp(tilesToMove);
+                checkForWinner();
             }
             else if (directionToMove == 'd' || directionToMove == 'D')
             {
                 moveDown(tilesToMove);
+                checkForWinner();
             }
         }
         
@@ -114,7 +121,7 @@ void printOutBoard(void)
             }
         }
     }
-    printf("\n\n\n");
+    printf("\n\n");
 }
 
 int moveLeft(int moveLeftVal)
@@ -123,7 +130,7 @@ int moveLeft(int moveLeftVal)
     
     if ((currentColumn - moveLeftVal) < 0)
     {
-        printf("Incorrect input!  Takes you off the board!");
+        printf("Incorrect input!  Takes you off the board!\n");
         return 0;
     }
     
@@ -165,7 +172,7 @@ int moveRight(int moveRightVal)
     
     if ((currentColumn + moveRightVal) > 3)
     {
-        printf("Incorrect input!  Takes you off the board!");
+        printf("Incorrect input!  Takes you off the board!\n");
         return 0;
     }
     
@@ -202,7 +209,7 @@ int moveUp(int moveUpVal)
     
     if ((currentRow - moveUpVal) < 0)
     {
-        printf("Incorrect input!  Takes you off the board!");
+        printf("Incorrect input!  Takes you off the board!\n");
         return 0;
     }
     
@@ -239,7 +246,7 @@ int moveDown(int moveDownVal)
     
     if ((currentRow + moveDownVal) > 3)
     {
-        printf("Incorrect input!  Takes you off the board!");
+        printf("Incorrect input!  Takes you off the board!\n");
         return 0;
     }
     
@@ -266,6 +273,34 @@ int moveDown(int moveDownVal)
     }
     
     printOutBoard();
+    
+    return 0;
+}
+
+int checkForWinner(void)
+{
+    int winnerCounter = 0;
+    for (int boardRowCounter = 0; boardRowCounter < 4; boardRowCounter++)
+    {
+        for (int boardColCounter = 0; boardColCounter < 4; boardColCounter++)
+        {
+             if (tileGameBoard[boardRowCounter][boardColCounter] == winningBoard[boardRowCounter][boardColCounter])
+             {
+                 winnerCounter++;
+             }
+             else
+             {
+                 return 0;
+             }
+        }
+    }
+    
+    if (winnerCounter == 16)
+    {
+        printf("We've got a winner!\n");
+        exit(0);
+    }
+    
     
     return 0;
 }
